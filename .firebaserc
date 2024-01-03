@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "androionic-c38a7": {
+      "hosting": {
+        "app": [
+          "androionic-c38a7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "androionic-c38a7"
+  }
+}

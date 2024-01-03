@@ -4,6 +4,7 @@
  
 
 <app-header  title="Login"></app-header>
+<h2 class="ion-text-center ion-no-margin">Acceso</h2>
 <div class="content">
     <form class="ion-text-center">
         <app-custom-input [control]="form.controls.email" type="email" icon="mail-outline" label="Correo"></app-custom-input>
@@ -17,10 +18,16 @@
             <div *ngIf="form.controls.password.errors?.['minlength']">Contraseña debe tener mínimo 8 digitos</div>
         </div>
     
-            <ion-button type="submit" [disabled]="!this.form.valid">
+            <ion-button type="submit" [disabled]="!this.form.valid" (click)="onSubmit()">
                 <ion-icon slot="end" name="log-in-outline"></ion-icon>
-                Click me
+                Entrar
             </ion-button>
+            <div class="sign-up">
+                <ion-button routerLink="sign-up" class="ion-margin-vertical">
+                    Registrate
+                    <ion-icon slot="end" name="person-add-outline"></ion-icon>
+                </ion-button>
+            </div>
         
     </form>
 </div>
