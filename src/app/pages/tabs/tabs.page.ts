@@ -18,6 +18,7 @@ async  signOut(){
     await this.utilServ.presentLoading({message: 'Please wait...'});
     await this.fireService.signOut();
     this.utilServ.routerLink('/login');
+    this.utilServ.removeLocalStroage('user');
   }
   catch(err){
     console.log(err);
@@ -27,4 +28,25 @@ async  signOut(){
 
   }
 } 
+async presentAlertConfirm() {
+  const alert = await this.utilServ.showAlert({
+    cssClass: 'my-custom-class',
+    header: 'Confirm!',
+    message: '',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+       
+      }, {
+        text: 'Cerrar Sesión',
+        handler:  () => {
+          this.signOut();
+          console.log('Confirm Okay');
+        }
+      }
+    ]
+  });
+
+}
 }

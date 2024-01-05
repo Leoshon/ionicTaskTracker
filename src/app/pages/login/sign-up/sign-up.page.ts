@@ -33,9 +33,15 @@ export class SignUpPage implements OnInit {
         name: this.form.value.name
       }
       this.utilServ.setLocalStroage('user', user);
-      this.utilServ.routerLink('/tabs');
+      this.utilServ.routerLink('/tabs/home');
       this.form.reset();
-    }).catch((err)=>{console.log(err)})
+    }).catch((err)=>{ this.utilServ.presentToast({
+      message: err.message,
+      header: 'Error',
+      duration: 2000,
+      position: 'top',
+    });
+  })
     .finally(async ()=>{
       await this.utilServ.dismissLoading();
     });

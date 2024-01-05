@@ -4,7 +4,7 @@ import {canActivate, redirectUnauthorizedTo, redirectLoggedInTo} from '@angular/
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['tabs']);
 const routes: Routes = [
 
   {

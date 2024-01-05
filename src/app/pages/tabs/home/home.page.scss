@@ -1,0 +1,20 @@
+ion-card{
+    border-radius: 15px;
+    padding:10px;
+    margin: 10px;
+    background: var(--ion-color-light);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border: solid 1px var(--ion-color-medium);
+    
+}
+ion-card:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background: var(--ion-color-light);
+}
+.title{
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 10px;
+    line-height: 20px;
+}
