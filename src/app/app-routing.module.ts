@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    ...canActivate(redirectLoggedInToHome)
+    //...canActivate(redirectLoggedInToHome)
    
    
     
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
-    ...canActivate(redirectUnauthorizedToLogin)
+   // ...canActivate(redirectUnauthorizedToLogin)
     
     
   },

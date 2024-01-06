@@ -19,11 +19,11 @@ export class HomePage implements OnInit {
       description: 'Implementar el Auth con Google',
       items: [
         {
-          name: 'Crear el proyecto en Firebase',
+          name: 'Crear el proyecto en Google',
           done: true
         },
         {
-          name: 'Instalar Firebase en el proyecto',
+          name: 'Instalar Google en el proyecto',
           done: true
         },
         {
@@ -42,11 +42,11 @@ export class HomePage implements OnInit {
       description: 'Implementar el Auth con Facebook',
       items: [
         {
-          name: 'Crear el proyecto en Firebase',
+          name: 'Crear el proyecto en Facebook',
           done: true
         },
         {
-          name: 'Instalar Firebase en el proyecto',
+          name: 'Instalar Facebook en el proyecto',
           done: true
         },
         {
@@ -65,11 +65,11 @@ export class HomePage implements OnInit {
       description: 'Implementar el Auth con Twitter',
       items: [
         {
-          name: 'Crear el proyecto en Firebase',
-          done: true
+          name: 'Crear el proyecto en Twitter',
+          done: false
         },
         {
-          name: 'Instalar Firebase en el proyecto',
+          name: 'Instalar Twitter en el proyecto',
           done: true
         },
         {
@@ -87,7 +87,6 @@ export class HomePage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.addUpdateTask();
   }
  getPercentage(task: Task) {
     return this.utilService.getPercentage(task);
@@ -96,7 +95,8 @@ export class HomePage implements OnInit {
     this.utilService.presentModal({
       component: AddUpdateTaskComponent,
       componentProps: { task },
-      cssClass: 'add-update-task-modal'
+      cssClass: 'add-update-task-modal',
+      backdropDismiss: false,
     });
     
  }

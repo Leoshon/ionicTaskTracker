@@ -1,3 +1,78 @@
 <ion-content color="light">
-  <app-header [isModal]=true title="Tarea" color="secondary"></app-header>
+  <app-header [isModal]="true" title="Tarea" color="primary"></app-header>
+  <app-custom-input
+    [control]="form.controls.title"
+    type="text"
+    label="Tarea"
+    autocomplete="title"
+  ></app-custom-input>
+  <div
+    class="validators"
+    *ngIf="form.controls.title.errors && form.controls.title.dirty"
+  >
+    <div *ngIf="form.controls.title.errors?.['required']">
+      El nombre es requerido
+    </div>
+    <div *ngIf="form.controls.title.errors?.['minlength']">
+      Nombre tiene que contener mínimo 2 letras
+    </div>
+  </div>
+  <app-custom-input
+    [control]="form.controls.description"
+    type="textarea"
+    label="Descripción"
+  ></app-custom-input>
+  <div
+    class="validators"
+    *ngIf="form.controls.description.errors && form.controls.description.dirty"
+  >
+    <div *ngIf="form.controls.description.errors?.['required']">
+      La descripción es requerida
+    </div>
+    <div *ngIf="form.controls.description.errors?.['minlength']">
+      Descripción tiene que contener mínimo 2 letras
+    </div>
+  </div>
+  <ion-item class="item-header">
+    <ion-label>Actividades</ion-label>
+    <span>Progreso: {{ getProgress() }}%</span>
+    <ion-button slot="end" mode="ios" shape="round" (click)="createItem()">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-range
+    min="0"
+    max="100"
+    dualKnobs="false"
+    pin="true"
+    snaps="true"
+    step="1"
+    ticks="true"
+    [value]="getProgress()"
+  >
+  </ion-range>
+  <ion-reorder-group
+    [disabled]="false"
+    (ionItemReorder)="handleReorder($any($event))"
+  >
+    <div *ngFor="let item of form.value.items; index as i">
+      <ion-item lines="none">
+        <ion-checkbox
+          color="success"
+          [(ngModel)]="item.done"
+          color="success"
+          class="ion-margin"
+        ></ion-checkbox>
+        <ion-label class="ion-text-wrap">{{ item.name }} </ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="removeItem(i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-item>
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </div>
+  </ion-reorder-group>
 </ion-content>

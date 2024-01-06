@@ -1,0 +1,17 @@
+.item-header{
+    --padding-top: 20px;
+    ion-label{
+        font-size:18px;
+        font-weight: bold;
+    }
+}
+ion-range {
+    --bar-background:var(--ion-color-success);
+    --bar-background-active: #3880ff;
+    --bar-border-radius: 4px;
+    --height: 20px;
+    --knob-background: var(--ion-color-success);
+    --knob-border-radius: 50%;
+    --knob-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    --knob-size: 18px;
+}

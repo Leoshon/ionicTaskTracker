@@ -34,7 +34,7 @@
                   <div class="title">{{tsk.title}}</div>
                   <p>{{tsk.description | slice:0:100}}...</p>
                   <div class="ion-text-center">
-                  <ion-button  mode="ios" size="small" shape="round">
+                  <ion-button  mode="ios" size="small" shape="round" (click)="addUpdateTask(tsk)">
                     Ver tarea
                     <ion-icon slot="end" name="eye-outline"></ion-icon>
                   </ion-button>
