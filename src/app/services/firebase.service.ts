@@ -45,7 +45,8 @@ export class FirebaseService {
   updateDocument(path: string, data: any) {
     return updateDoc(doc(this.fireStore, path), data);
   }
-  deleteDocument(path: string, id: string) {
+  deleteDocument(path: string, id: any) {
     return deleteDoc(doc(this.fireStore, path, id));
   }
+  
 }

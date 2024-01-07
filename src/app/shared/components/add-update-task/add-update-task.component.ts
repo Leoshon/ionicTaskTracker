@@ -145,29 +145,6 @@ export class AddUpdateTaskComponent implements OnInit {
     this.utilService.dismissModal({ success: true });
 
     
-  /*  await this.fireStore.updateDocument(
-      `users/${this.usuario.uid}/tasks/${this.form.value.id}`,
-      this.form.value
-    ).then(()=>{
-      this.utilService.presentToast({
-        message: 'Tarea actualizada',
-        icon: 'checkmark-circle-outline',
-        color: 'success',
-        duration: 2000,
-      });
-      this.utilService.dismissModal({ success: true });
-      this.utilService.dismissLoading();
-    })
-    .catch((error)=>{
-      console.log(error);
-      this.utilService.dismissLoading();
-      this.utilService.presentToast({
-        message: error.message,
-        duration: 2000,
-        icon: 'alert-circle-outline',
-        color: 'warning',
-      });
-    }); */
     
   }
 }
