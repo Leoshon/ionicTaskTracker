@@ -1,5 +1,5 @@
 <ion-content color="light">
-  <app-header [isModal]="true" title="Tarea" color="primary"></app-header>
+  <app-header [isModal]="true" [title]=" task ? 'Actualizar tarea' : 'Crear tarea' " color="primary"></app-header>
   <app-custom-input
     [control]="form.controls.title"
     type="text"
@@ -33,9 +33,9 @@
       Descripción tiene que contener mínimo 2 letras
     </div>
   </div>
-  <ion-item class="item-header">
+  <ion-item class="item-header" >
     <ion-label>Actividades</ion-label>
-    <span>Progreso: {{ getProgress() }}%</span>
+    <span >Progreso: {{ getProgress() }}%</span>
     <ion-button slot="end" mode="ios" shape="round" (click)="createItem()">
       <ion-icon name="add-circle-outline"></ion-icon>
     </ion-button>
@@ -55,8 +55,8 @@
     [disabled]="false"
     (ionItemReorder)="handleReorder($any($event))"
   >
-    <div *ngFor="let item of form.value.items; index as i">
-      <ion-item lines="none">
+    <div  *ngFor="let item of form.value.items; index as i">
+      <ion-item  lines="none">
         <ion-checkbox
           color="success"
           [(ngModel)]="item.done"
@@ -76,3 +76,10 @@
     </div>
   </ion-reorder-group>
 </ion-content>
+<ion-footer>
+  <div class="ion-text-center">
+    <ion-button (click)="onSubmit()" class="ion-margin" mode="ios" [disabled]="!form.valid" shape="round">
+    {{ task ? 'Guardar cambios' : 'Crear tarea'}}  
+    </ion-button>
+  </div>
+</ion-footer>

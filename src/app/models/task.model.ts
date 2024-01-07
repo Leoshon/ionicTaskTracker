@@ -5,6 +5,6 @@ export interface Task {
   items?: Item[];
 }
 export interface Item {
-    name?: string;
+    name: string;
     done?: boolean;
 }

@@ -4,6 +4,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { User } from 'src/app/models/user.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemReorderEventDetail } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-add-update-task',
@@ -12,12 +13,15 @@ import { ItemReorderEventDetail } from '@ionic/angular';
 })
 export class AddUpdateTaskComponent implements OnInit {
   utilService = inject(UtilsService);
+  fireStore = inject(FirebaseService);
+
   @Input() task?: Task;
   usuario = {} as User;
   form = new FormGroup({
     id: new FormControl(''),
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+  
     items: new FormControl(
       [
         {
@@ -35,19 +39,14 @@ export class AddUpdateTaskComponent implements OnInit {
     this.usuario = this.utilService.getLocalStroage('user');
     if (this.task) {
       this.form.setValue(this.task as any);
+      console.log(this.task)
     }
   }
+
   getProgress() {
     return this.utilService.getPercentage(this.form.value as Task);
   }
   handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
-    // Before complete is called with the items they will remain in the
-    // order before the drag
-    console.log('Before complete', this.form.value.items);
-
-    // Finish the reorder and position the item in the DOM based on
-    // where the gesture ended. Update the items variable to the
-    // new order of items
     this.form.value.items = ev.detail.complete(
       this.form.value.items as Task['items']
     );
@@ -88,7 +87,87 @@ export class AddUpdateTaskComponent implements OnInit {
         },
       ],
     });
+  }
+  onSubmit() {
+    
+    if (this.task) {
+      this.updateTask();
+    } else {
+      this.createTask();
+    }
+  }
+  async createTask() {
+    try {
+      const loading = await this.utilService.presentLoading({
+        message: 'Creando tarea...',
+      });
+      delete this.form.value.id;
+
+      await this.fireStore.addDocument(`users/${this.usuario.uid}/tasks`, {
+        ...this.form.value,
+       
+      });
+      await this.utilService.dismissLoading();
+      this.utilService.presentToast({
+        message: 'Tarea creada',
+        icon: 'checkmark-circle-outline',
+        color: 'success',
+        duration: 2000,
+      });
+      this.utilService.dismissModal({ success: true });
+    } catch (error: any) {
+      console.log(error);
+      this.utilService.dismissLoading();
+      this.utilService.presentToast({
+        message: error.message,
+        duration: 2000,
+        icon: 'alert-circle-outline',
+        color: 'warning',
+      });
+    }
+  }
+ async updateTask() {
+  
+    console.log(this.form.value);
+    console.log(this.usuario.uid);
+    let path = `users/${this.usuario.uid}/tasks/${this.form.value.id}`;
+    const loading = await this.utilService.presentLoading({
+      message: 'Actualizando tarea...',
+    });
+    await this.fireStore.updateDocument(path, this.form.value);
+    await this.utilService.dismissLoading();
+    this.utilService.presentToast({
+      message: 'Tarea actualizada',
+      icon: 'checkmark-circle-outline',
+      color: 'success',
+      duration: 2000,
+    });
+    this.utilService.dismissModal({ success: true });
+
+    
+  /*  await this.fireStore.updateDocument(
+      `users/${this.usuario.uid}/tasks/${this.form.value.id}`,
+      this.form.value
+    ).then(()=>{
+      this.utilService.presentToast({
+        message: 'Tarea actualizada',
+        icon: 'checkmark-circle-outline',
+        color: 'success',
+        duration: 2000,
+      });
+      this.utilService.dismissModal({ success: true });
+      this.utilService.dismissLoading();
+    })
+    .catch((error)=>{
+      console.log(error);
+      this.utilService.dismissLoading();
+      this.utilService.presentToast({
+        message: error.message,
+        duration: 2000,
+        icon: 'alert-circle-outline',
+        color: 'warning',
+      });
+    }); */
     
   }
-
 }

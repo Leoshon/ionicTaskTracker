@@ -13,7 +13,7 @@ export class HomePage implements OnInit {
   utilService=inject(UtilsService);
   fireService=inject(FirebaseService);
   tasks: Task[] = [
-    {
+/*     {
       id: '1',
       title: 'Auth con Google',
       description: 'Implementar el Auth con Google',
@@ -81,12 +81,20 @@ export class HomePage implements OnInit {
           done: false
         }
       ]
-    }
+    } */
   ];
 
   constructor() { }
 
   ngOnInit() {
+   // this.getTasks();
+  }
+  ionViewWillEnter() {
+    this.getTasks();
+  }
+  getUsuario() {
+    let usuario = this.utilService.getLocalStroage('user');
+    return usuario;
   }
  getPercentage(task: Task) {
     return this.utilService.getPercentage(task);
@@ -99,5 +107,12 @@ export class HomePage implements OnInit {
       backdropDismiss: false,
     });
     
+ }
+ getTasks() {
+  this.fireService.getTasks(`users/${this.getUsuario().uid}/tasks`).subscribe((tasks) => {
+    this.tasks = tasks;
+   
+  });
+ 
  }
 }

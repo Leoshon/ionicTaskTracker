@@ -15,3 +15,9 @@ ion-range {
     --knob-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     --knob-size: 18px;
 }
+.item-reorder{
+    --min-height: 32px;
+}
+ion-footer{
+    --background: var(--ion-color-light);
+}

@@ -5,7 +5,7 @@ import {
   getAuth,
   updateProfile,
 } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, query, updateDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.model';
 import { signInWithEmailAndPassword } from '@angular/fire/auth';
 @Injectable({
@@ -34,5 +34,18 @@ export class FirebaseService {
     const auth = getAuth();
     if(!auth.currentUser) return;
     return updateProfile(auth.currentUser, user);
+  }
+ async addDocument(path: string, data: any) {
+    return await addDoc(collection(this.fireStore, path), data);
+  }
+ getTasks(path:string, collectionquery?:any){
+    const ref = collection(this.fireStore, path);
+    return  collectionData(query(ref, collectionquery), {idField: 'id'});
+  }
+  updateDocument(path: string, data: any) {
+    return updateDoc(doc(this.fireStore, path), data);
+  }
+  deleteDocument(path: string, id: string) {
+    return deleteDoc(doc(this.fireStore, path, id));
   }
 }
